@@ -2,7 +2,17 @@
   <head>
     <script>
       var url = window.location.href;
-      console.log(url.split('?')[1]);
+      var q = url.split('?')[1];
+      var payload = q.split('=')[1];
+      
+      function test(payload) {
+        var script = document.createElement('script');
+        script.onerror = function() { console.log("Nope") }
+        script.onload = function() { console.log("Yeah") }
+        script.src = payload;
+        document.querySelector('head').appendChild(script);
+      }
+      test(payload)
     </script>
   </head>
   <body>
